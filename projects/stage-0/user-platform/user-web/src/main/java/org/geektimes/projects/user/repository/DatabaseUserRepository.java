@@ -1,7 +1,7 @@
 package org.geektimes.projects.user.repository;
 
-import org.geektimes.function.ThrowableFunction;
 import org.geektimes.context.ComponentContext;
+import org.geektimes.function.ThrowableFunction;
 import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.sql.DBConnectionManager;
 
@@ -9,7 +9,9 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.logging.Level;
@@ -44,7 +46,25 @@ public class DatabaseUserRepository implements UserRepository {
 
     @Override
     public boolean save(User user) {
-        return false;
+        Connection connection = dbConnectionManager.getConnection();
+        boolean re = false;
+//        Connection connection ;
+//
+//        try {
+//            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+//             Driver driver = DriverManager.getDriver("jdbc:derby:D:/db/user-platform;create=true");
+//
+//            connection = driver.connect("jdbc:derby:/db/user-platform;create=true",new Properties());
+//            Statement statement = connection.createStatement();
+//             statement.execute(CREATE_USERS_TABLE_DDL_SQL);
+//            re =  statement.execute( "INSERT INTO users(name,password,email,phoneNumber) VALUES (" +1
+//                    +","+user.getPassword()+","+
+//                    "'"+user.getEmail()+"'"+","
+//                    +12333+")" );
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+        return re;
     }
 
     @Override

@@ -22,12 +22,12 @@
 <!--              driverClassName="org.apache.derby.jdbc.EmbeddedDriver"-->
 <!--              url="jdbc:derby:/db/user-platform;create=true"/>-->
 	<Resource name="jdbc/UserPlatformDB"
-			  type="javax.sql.DataSource"  auth="Container"
-			  description="Derby database for User Platform"
-			  maxActive="100" maxIdle="30" maxWait="10000"
-			  username="root" password="root"
-			  driverClassName="org.h2.Driver"
-			  url="jdbc:h2:mem:UserPlatformDB"/>
+              type="javax.sql.DataSource"  auth="Container"
+              description="Derby database for User Platform"
+              maxActive="100" maxIdle="30" maxWait="10000"
+              username="root" password="root"
+              driverClassName="org.h2.Driver"
+              url="jdbc:h2:mem:UserPlatformDB"/>
 
 	<!-- FactoryBean -->
 	<Resource name="bean/DBConnectionManager" auth="Container"
