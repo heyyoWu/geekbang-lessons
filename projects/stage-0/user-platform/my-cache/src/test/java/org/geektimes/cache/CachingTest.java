@@ -105,8 +105,38 @@ public class CachingTest {
     }
 
     @Test
+    public void testLettuceRedis() {
+        CachingProvider cachingProvider = Caching.getCachingProvider();
+        CacheManager cacheManager = cachingProvider.getCacheManager(URI.create("redis://127.0.0.1:6379/"), null);
+        // configure the cache
+        MutableConfiguration<String, String> config =
+                new MutableConfiguration<String, String>()
+                        .setTypes(String.class, String.class);
+
+        // create the cache
+        Cache<String, String> cache = cacheManager.createCache("redisCache", config);
+
+        // add listener
+        cache.registerCacheEntryListener(cacheEntryListenerConfiguration(new TestCacheEntryListener<>()));
+
+        // cache operations
+        String key = "redis-key";
+        String value1 = "1";
+        cache.put(key, value1);
+
+        // update
+        value1 = "2";
+        cache.put(key, value1);
+
+        String value2 = cache.get(key);
+        assertEquals("redis-key是否一致：",value1, value2);
+        cache.remove(key);
+        assertNull(cache.get(key));
+    }
+
+    @Test
     public void testLettuce() {
-        RedisClient redisClient = RedisClient.create("redis://localhost:6379/0");
+        RedisClient redisClient = RedisClient.create("redis://localhost:6379");
         StatefulRedisConnection<String, String> connection = redisClient.connect();
         RedisCommands<String, String> syncCommands = connection.sync();
 
